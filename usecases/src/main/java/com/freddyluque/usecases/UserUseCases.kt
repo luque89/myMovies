@@ -6,6 +6,6 @@ import com.freddyluque.domain.Either
 import com.freddyluque.domain.User
 
 class UserUseCases(private val userRepository: UserRepository) {
-    suspend fun getAuth(email:String,password:String): Either<String, Authorization> = userRepository.getAuth(email,password)
-    suspend fun getUser(authorization: Authorization): Either<String,User> = userRepository.getUser(authorization)
+    suspend fun login(email:String,password:String): Either<String, User> = userRepository.login(email,password)
+    suspend fun getUser(email: String): User = userRepository.getUser(email)
 }

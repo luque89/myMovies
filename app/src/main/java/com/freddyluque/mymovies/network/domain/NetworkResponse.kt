@@ -1,5 +1,7 @@
 package com.freddyluque.mymovies.network.domain
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -14,7 +16,10 @@ data class NetworkAuthResponse(
     val expires_in: Int,
     val refresh_token: String,
     val token_type: String,
-    val username: String
+    val username: String,
+//    @SerializedName(".expires")
+//    @Expose
+//    val expire: String
 )
 
 data class NetworkUserResponse(

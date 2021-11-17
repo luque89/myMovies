@@ -1,6 +1,7 @@
 package com.freddyluque.mymovies.di
 
 import com.freddyluque.data.repository.UserRepository
+import com.freddyluque.data.source.LocalDataSource
 import com.freddyluque.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
@@ -11,8 +12,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class DataModule {
     @Provides
-    fun recipeRepositoryProvider(
-//        localDataSource: LocalDataSource,
+    fun userRepositoryProvider(
+        localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource
-    ) = UserRepository(remoteDataSource)
+    ) = UserRepository(remoteDataSource,localDataSource)
 }

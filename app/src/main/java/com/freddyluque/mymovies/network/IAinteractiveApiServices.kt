@@ -37,3 +37,5 @@ object IAinteractiveApi{
         getRetrofit(ROOT_URL).create(IAinteractiveApiServices::class.java)
     }
 }
+
+enum class NETWORK_STATUS  {DONE,LOADING,ERROR}

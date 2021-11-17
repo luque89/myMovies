@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">My movies</string>
+    <string name="email_field">*Usuario</string>
+    <string name="password_field">*Contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_cinema">Cartelera</string>
+    <string name="app_welcome">Bienvenido:</string>
+    <string name="app_email">Correo electrónico:</string>
+    <string name="app_card">Tarjeta:</string>
+    <string name="cardNumber_field">Número de tarjeta Club Cinépolis</string>
+    <string name="search">Consultar</string>
 </resources>
