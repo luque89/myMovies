@@ -10,7 +10,6 @@ class UserRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) {
-    //suspend fun getAuth(email:String,password:String): Either<String,Authorization> = remoteDataSource.getAuth(email,password)
     suspend fun getUser(email:String): User = localDataSource.getUser(email)
     suspend fun login(email:String,password:String): Either<String,User> {
         if(localDataSource.getAuth(email) == null){

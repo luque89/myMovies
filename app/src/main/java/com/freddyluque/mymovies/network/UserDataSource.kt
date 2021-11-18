@@ -1,11 +1,13 @@
 package com.freddyluque.mymovies.network
 
+import android.util.Log
 import com.freddyluque.data.source.RemoteDataSource
-import com.freddyluque.domain.Authorization
-import com.freddyluque.domain.Either
-import com.freddyluque.domain.User
+import com.freddyluque.domain.*
+import com.freddyluque.mymovies.fromServerMovieToDomainMovieList
 import com.freddyluque.mymovies.network.domain.NetworkErrorResponse
+import com.freddyluque.mymovies.network.domain.NetworkTransactionRequest
 import com.freddyluque.mymovies.toDomainAuth
+import com.freddyluque.mymovies.toDomainBalanceList
 import com.freddyluque.mymovies.toDomainUser
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,14 +22,14 @@ class UserDataSource: RemoteDataSource {
                 val response = IAinteractiveApi.retrofitService.getAuth(username = email,password = password)
                 Either.Right(response.toDomainAuth(password))
             }catch (e: HttpException){
-                val gson = Gson()
-                val type = object : TypeToken<NetworkErrorResponse>() {}.type
-                val networkErrorResponse = gson.fromJson<NetworkErrorResponse>(
-                    e.response()?.errorBody()!!.charStream(),
-                    type
-                )
+//                val gson = Gson()
+//                val type = object : TypeToken<NetworkErrorResponse>() {}.type
+//                val networkErrorResponse = gson.fromJson<NetworkErrorResponse>(
+//                    e.response()?.errorBody()!!.charStream(),
+//                    type
+//                )
 
-                Either.Left(networkErrorResponse.message)
+                Either.Left(e.message ?: "Error en el servidor")
             }catch (e: Exception){
                 Either.Left(e.message ?: "Connection failure")
             }
@@ -41,14 +43,55 @@ class UserDataSource: RemoteDataSource {
                 val response = IAinteractiveApi.retrofitService.getUser(auth = auth)
                 Either.Right(response.toDomainUser())
             }catch (e: HttpException){
-                val gson = Gson()
-                val type = object : TypeToken<NetworkErrorResponse>() {}.type
-                val networkErrorResponse = gson.fromJson<NetworkErrorResponse>(
-                    e.response()?.errorBody()!!.charStream(),
-                    type
-                )
+//                val gson = Gson()
+//                val type = object : TypeToken<NetworkErrorResponse>() {}.type
+//                val networkErrorResponse = gson.fromJson<NetworkErrorResponse>(
+//                    e.response()?.errorBody()!!.charStream(),
+//                    type
+//                )
 
-                Either.Left(networkErrorResponse.message)
+                Either.Left(e.message ?: "Error en el servidor")
+            }catch (e: Exception){
+                Either.Left(e.message ?: "Connection failure")
+            }
+        }
+    }
+
+    override suspend fun getMovies(cinema: String): Either<String, List<Movie>> {
+        return withContext(Dispatchers.IO){
+            try {
+                val response = IAinteractiveApi.retrofitService.getMovies(cinema = cinema)
+                Either.Right(response.fromServerMovieToDomainMovieList())
+            }catch (e: HttpException){
+//                Log.i("cines1","errorr HttpException")
+//                val gson = Gson()
+//                val type = object : TypeToken<NetworkErrorResponse>() {}.type
+//                val networkErrorResponse = gson.fromJson<NetworkErrorResponse>(
+//                    e.response()?.errorBody()!!.charStream(),
+//                    type
+//                )
+
+                Either.Left(e.message ?: "Error en el servidor")
+            }catch (e: Exception){
+                Log.i("cines1","errorr Exception ${e.message}")
+                Either.Left(e.message ?: "Connection failure")
+            }
+        }
+    }
+
+    override suspend fun getTransactions(
+        cardNumber: String,
+        pin: String
+    ): Either<String, List<Balance>> {
+        return withContext(Dispatchers.IO){
+            try {
+                val response = IAinteractiveApi.retrofitService.getTransactions(networkTransactionRequest = NetworkTransactionRequest(
+                    card_number = cardNumber,
+                    pin = pin
+                ))
+                Either.Right(response.balance_list.toDomainBalanceList())
+            }catch (e: HttpException){
+                Either.Left(e.message ?: "Error en el servidor")
             }catch (e: Exception){
                 Either.Left(e.message ?: "Connection failure")
             }

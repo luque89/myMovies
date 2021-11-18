@@ -23,5 +23,17 @@
     <fragment
         android:id="@+id/cinema"
         android:name="com.freddyluque.mymovies.ui.cinema.CinemaFragment"
-        android:label="@string/title_cinema" />
+        android:label="@string/title_cinema" >
+        <action
+            android:id="@+id/action_cinema_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.freddyluque.mymovies.ui.movie.MovieDetailFragment"
+        android:label="Detalle Película" >
+        <argument
+            android:name="movie"
+            app:argType="com.freddyluque.mymovies.MovieParcelable" />
+    </fragment>
 </navigation>

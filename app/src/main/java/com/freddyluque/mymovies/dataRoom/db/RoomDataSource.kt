@@ -2,14 +2,13 @@ package com.freddyluque.mymovies.dataRoom.db
 
 import com.freddyluque.data.source.LocalDataSource
 import com.freddyluque.domain.Authorization
+import com.freddyluque.domain.Movie
 import com.freddyluque.domain.User
-import com.freddyluque.mymovies.toDatabaseAuthorization
-import com.freddyluque.mymovies.toDatabaseUser
-import com.freddyluque.mymovies.toDomainAuthorization
-import com.freddyluque.mymovies.toDomainUser
+import com.freddyluque.mymovies.*
 
 class RoomDataSource(db: MoviesDatabase): LocalDataSource{
     private val userDao = db.userDao
+    private val movieDao = db.movieDao
 
     override suspend fun getAuth(email: String): Authorization? {
         return userDao.getAuthorization(email)?.toDomainAuthorization()
@@ -27,4 +26,15 @@ class RoomDataSource(db: MoviesDatabase): LocalDataSource{
         userDao.insertOrUpdateUser(user.toDatabaseUser())
     }
 
+    override suspend fun getMovies(): List<Movie> {
+        return movieDao.getMovies().toDomainMovieList()
+    }
+
+    override suspend fun getMovie(id: String): Movie {
+        return movieDao.getMovie(id).toDomain()
+    }
+
+    override suspend fun insertMovies(movieList: List<Movie>) {
+        movieDao.insertMovies(movieList.toDatabaseMovieList())
+    }
 }

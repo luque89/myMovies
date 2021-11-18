@@ -1,5 +1,6 @@
 package com.freddyluque.mymovies.di
 
+import com.freddyluque.data.repository.CinemaRepository
 import com.freddyluque.data.repository.UserRepository
 import com.freddyluque.data.source.LocalDataSource
 import com.freddyluque.data.source.RemoteDataSource
@@ -16,4 +17,10 @@ class DataModule {
         localDataSource: LocalDataSource,
         remoteDataSource: RemoteDataSource
     ) = UserRepository(remoteDataSource,localDataSource)
+
+    @Provides
+    fun cinemaRepositoryProvider(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ) = CinemaRepository(remoteDataSource,localDataSource)
 }

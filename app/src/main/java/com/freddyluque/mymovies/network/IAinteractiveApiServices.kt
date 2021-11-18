@@ -1,15 +1,14 @@
 package com.freddyluque.mymovies.network
 
-import com.freddyluque.mymovies.network.domain.NetworkAuthResponse
-import com.freddyluque.mymovies.network.domain.NetworkUserResponse
+import com.freddyluque.mymovies.network.domain.*
 import retrofit2.http.*
 
 const val ROOT_URL = "https://stage-api.cinepolis.com"
 
 const val GET_AUTH = "/v2/oauth/token"
 const val GET_USER = "/v1/members/profile"
-const val GET_CINEMAS = "/v2/locations/cinemas"
 const val GET_MOVIES = "/v2/movies"
+const val GET_TRANSACTION = "/v2/members/loyalty"
 
 interface IAinteractiveApiServices {
     @FormUrlEncoded
@@ -30,6 +29,19 @@ interface IAinteractiveApiServices {
         @Header("api_key") apiKey: String = "stage_HNYh3RaK_Test",
         @Query("country_code") countryCode: String = "MX"
     ): NetworkUserResponse
+
+    @GET(GET_MOVIES)
+    suspend fun getMovies(
+        @Header("api_key") apiKey: String = "stage_HNYh3RaK_Test",
+        @Query("country_code") countryCode: String = "MX",
+        @Query("cinema") cinema: String
+    ): NetworkMoviesResponse
+
+    @POST(GET_TRANSACTION)
+    suspend fun getTransactions(
+        @Header("api_key") apiKey: String = "stage_HNYh3RaK_Test",
+        @Body networkTransactionRequest: NetworkTransactionRequest
+    ): NetworkTransactionResponse
 }
 
 object IAinteractiveApi{
