@@ -35,7 +35,7 @@ class ProfileViewModel @Inject constructor(
     val balanceList: LiveData<List<Balance>>
         get() = _balanceList
 
-    init {
+    fun getUser(){
         viewModelScope.launch {
             _model.value = Event(UiModel.UserGet(userUseCases.getUser(email)))
         }

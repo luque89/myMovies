@@ -84,5 +84,6 @@ class ProfileFragment : Fragment() {
             AppBarVisible = true,
             bottomBarVisible = true
         )
+        viewModel.getUser()
     }
 }
