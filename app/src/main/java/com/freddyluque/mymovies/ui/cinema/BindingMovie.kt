@@ -30,7 +30,6 @@ fun bindImage(imgView: ImageView, imageUrl: String?) {
 
 @BindingAdapter("movieListData")
 fun bindRecyclerViewProducts(recyclerView: RecyclerView, data: List<Movie>?) {
-    Log.i("BindingCashier", "ENTRE SETEO LISTA DE PRODUCTOS")
     val adapter = recyclerView.adapter as AdapterItem
     adapter.submitList(data)
 }

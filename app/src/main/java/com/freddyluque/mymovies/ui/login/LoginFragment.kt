@@ -51,7 +51,6 @@ class LoginFragment : Fragment() {
                         }
                     }
                     is LoginViewModel.UiModel.NavigateToProfile -> {
-                        Log.i("auth1","navegarrr")
                         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment())
                     }
                 }

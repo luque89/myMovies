@@ -54,7 +54,7 @@ class MovieDetailFragment : Fragment() {
                 share.type = "text/plain"
                 share.putExtra(Intent.EXTRA_TEXT, message)
 
-                startActivity(Intent.createChooser(share, "Title of the dialog the system will open"))
+                startActivity(Intent.createChooser(share, requireContext().getText(R.string.title_share)))
             }
         }
         return super.onOptionsItemSelected(item)

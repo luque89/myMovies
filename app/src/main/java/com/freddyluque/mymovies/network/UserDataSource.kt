@@ -73,7 +73,6 @@ class UserDataSource: RemoteDataSource {
 
                 Either.Left(e.message ?: "Error en el servidor")
             }catch (e: Exception){
-                Log.i("cines1","errorr Exception ${e.message}")
                 Either.Left(e.message ?: "Connection failure")
             }
         }

@@ -30,7 +30,6 @@ fun bindTextMessage(textView: TextView, message: String) {
 
 @BindingAdapter("balanceListData")
 fun bindRecyclerViewProducts(recyclerView: RecyclerView, data: List<Balance>?) {
-    Log.i("BindingCashier", "ENTRE SETEO LISTA DE PRODUCTOS")
     val adapter = recyclerView.adapter as AdapterBalance
     adapter.submitList(data)
 }
