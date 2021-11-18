@@ -19,4 +19,5 @@
     <string name="cinema_number">Número de cinema</string>
     <string name="pin_field">Pin</string>
     <string name="put_cardNumer_pin">Debe ingresar los campos de número de tarjeta y pin</string>
+    <string name="title_share">Share</string>
 </resources>
